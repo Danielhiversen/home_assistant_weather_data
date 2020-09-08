@@ -1,4 +1,4 @@
-# Weather data
+Weather data
 
 Replaces the old yr sensor.
 
@@ -27,7 +27,7 @@ sensor:
   - platform: weather
 ```
 
-{% configuration %}
+```yaml
 name:
   description: Additional name for the sensors.
   required: false
@@ -84,7 +84,7 @@ altitude:
   required: false
   type: float
   default: Provided by Home Assistant configuration.
-{% endconfiguration %}
+```
 
 A full configuration example can be found below:
 
