@@ -1,0 +1,7 @@
+{
+  "domain": "weather_data",
+  "name": "Weather",
+  "documentation": "https://www.home-assistant.io/integrations/yr",
+  "requirements": ["xmltodict==0.12.0"],
+  "codeowners": ["@danielhiversen"]
+}
