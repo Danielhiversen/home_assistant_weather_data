@@ -1,5 +1,5 @@
 {
-    "name": "Weather data",
+    "name": "Weather data (Replaces the old yr.no sensor)",
     "domains": [
         "sensor"
     ],
