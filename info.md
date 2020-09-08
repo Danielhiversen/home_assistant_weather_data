@@ -2,7 +2,6 @@ Weather data
 
 Replaces the old yr sensor.
 
-This sensor is not made by yr.no.
 
 {%- if selected_tag == "master" %}
 ## This is a development version!
