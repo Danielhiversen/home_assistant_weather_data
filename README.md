@@ -2,6 +2,7 @@
 
 Replaces the old yr sensor.
 
+To migrate from the old yr sensor, replace `- platform: yr` with `- platform: weather_data`
 
 The `weather_data` platform uses [met.no](https://www.met.no/) as a source for current
 meteorological data for your location. The weather forecast is delivered by the
@@ -99,4 +100,4 @@ sensor:
       - dewpointTemperature
 ```
 
-[Buy me a coffee :)](http://paypal.me/dahoiv)
+[Support the developer](http://paypal.me/dahoiv)

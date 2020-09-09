@@ -3,5 +3,6 @@
     "domains": [
         "sensor"
     ],
+    "homeassistant": "0.116.0",
     "iot_class": "Cloud Polling"
 }

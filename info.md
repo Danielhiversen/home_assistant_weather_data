@@ -2,6 +2,8 @@ Weather data
 
 Replaces the old yr sensor.
 
+To migrate from the old yr sensor, replace `- platform: yr` with `- platform: weather_data`
+
 
 {%- if selected_tag == "master" %}
 ## This is a development version!
@@ -109,4 +111,4 @@ sensor:
       - dewpointTemperature
 ```
 
-[Buy me a coffee :)](http://paypal.me/dahoiv)
+[Support the developer](http://paypal.me/dahoiv)
