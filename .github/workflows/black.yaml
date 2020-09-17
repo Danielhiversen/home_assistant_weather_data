@@ -10,7 +10,7 @@ jobs:
   validate:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: lgeiger/black-action@v1.0.1
+      - uses: jpetrucciani/black-check@19.10b0
       - uses: py-actions/flake8@v1.0.1
         with:
           max-line-length: 120
