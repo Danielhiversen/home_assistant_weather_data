@@ -17,6 +17,8 @@ sensor:
   - platform: weather
 ```
 
+
+
 ```yaml
 name:
   description: Additional name for the sensors.
