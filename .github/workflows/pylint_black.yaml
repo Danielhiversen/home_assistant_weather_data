@@ -1,2 +1,16 @@
-- name: pylint-and-format
-  uses: itsvinayak/pylint-and-format@v1.1
+name: pylint-and-format
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  validate:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: itsvinayak/pylint-and-format@v1.1
+        with:
+          # filename
+          filename: custom_components/weather_data/*.py
