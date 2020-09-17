@@ -11,6 +11,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - uses: jpetrucciani/black-check@19.10b0
-      - uses: py-actions/flake8@v1.0.1
-        with:
-          max-line-length: 120
+      - name: Flake8 Code Linter
+        uses: jonasrk/flake8-action@master
+        with: 
+          args: "--max-line-length=120 "
