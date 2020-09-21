@@ -10,7 +10,7 @@ jobs:
   validate:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: jpetrucciani/black-check@19.10b0
+      - uses: lgeiger/black-action@v1.0.1
       - name: Flake8 Code Linter
         uses: jonasrk/flake8-action@master
         with: 
