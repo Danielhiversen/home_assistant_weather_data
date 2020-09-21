@@ -18,7 +18,7 @@ add the following to your `configuration.yaml` file:
 ```yaml
 # Example configuration.yaml entry
 sensor:
-  - platform: weather
+  - platform: weather_data
 ```
 
 ```yaml
@@ -85,7 +85,7 @@ A full configuration example can be found below:
 ```yaml
 # Example configuration.yaml entry
 sensor:
-  - platform: weather
+  - platform: weather_data
     name: Weather
     forecast: 24
     monitored_conditions:
