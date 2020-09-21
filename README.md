@@ -1,5 +1,7 @@
 # Weather data
 
+![Validate with hassfest](https://github.com/Danielhiversen/home_assistant_weather_data/workflows/Validate%20with%20hassfest/badge.svg)
+[![GitHub Release][releases-shield]][releases]
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
 
 Replaces the old yr sensor.
@@ -103,3 +105,6 @@ sensor:
 ```
 
 [Support the developer](http://paypal.me/dahoiv)
+
+[releases-shield]: https://img.shields.io/github/release/Danielhiversen/home_assistant_weather_data.svg?style=popout
+[releases]: https://github.com/Danielhiversen/home_assistant_weather_data/releases
