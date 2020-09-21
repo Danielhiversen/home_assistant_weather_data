@@ -1,5 +1,7 @@
 # Weather data
 
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+
 Replaces the old yr sensor.
 
 To migrate from the old yr sensor, replace `- platform: yr` with `- platform: weather_data`
