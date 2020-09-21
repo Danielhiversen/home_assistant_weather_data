@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: lgeiger/black-action@v1.0.1
         with:
-          args: "custom_components/weather_data/ --check"
+          args: "./custom_components/ --check"
       - name: Flake8 Code Linter
         uses: jonasrk/flake8-action@master
         with: 
