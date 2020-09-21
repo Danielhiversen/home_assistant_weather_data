@@ -100,7 +100,9 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         dev.append(WeatherSensor(name, sensor_type))
 
     weather = WeatherData(hass, coordinates, forecast, dev)
-    async_track_utc_time_change(hass, weather.updating_devices, minute=randrange(60), second=0)
+    async_track_utc_time_change(
+        hass, weather.updating_devices, minute=randrange(60), second=0
+    )
     await weather.fetching_data()
     async_add_entities(dev)
 
