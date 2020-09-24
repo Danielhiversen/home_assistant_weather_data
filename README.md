@@ -6,6 +6,9 @@
 
 Replaces the old yr sensor.
 
+Install it as a custom component or use https://hacs.xyz/.
+
+
 To migrate from the old yr sensor, replace `- platform: yr` with `- platform: weather_data`
 
 The `weather_data` platform uses [met.no](https://www.met.no/) as a source for current
