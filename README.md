@@ -9,7 +9,7 @@ Replaces the old yr sensor.
 Install it as a custom component or use https://hacs.xyz/.
 
 
-To migrate from the old yr sensor, replace `- platform: yr` with `- platform: weather_data`
+To migrate from the old yr sensor, replace `- platform: yr` with `- platform: weather_data`. All sensor entities should be unchanged.
 
 The `weather_data` platform uses [met.no](https://www.met.no/) as a source for current
 meteorological data for your location. The weather forecast is delivered by the
