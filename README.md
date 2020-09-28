@@ -6,7 +6,7 @@
 
 Replaces the old yr sensor.
 
-Install it as a custom component or use https://hacs.xyz/.
+Install it as a custom component or use https://hacs.xyz/docs/faq/custom_repositories.
 
 
 To migrate from the old yr sensor, replace `- platform: yr` with `- platform: weather_data`. All sensor entities should be unchanged.
