@@ -93,7 +93,10 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         _LOGGER.error("Latitude or longitude not set in Home Assistant config")
         return False
 
-    coordinates = {"lat": str(latitude), "lon": str(longitude), "msl": str(elevation)}
+    coordinates = {"lat": str(round(float(latitude), 4)),
+                   "lon": str(round(float(longitude), 4)),
+                   "altitude": str(int(float(urlparams.get('altitude', elevation)))),
+                   }
 
     dev = []
     for sensor_type in config[CONF_MONITORED_CONDITIONS]:
@@ -165,7 +168,7 @@ class WeatherData:
 
     def __init__(self, hass, coordinates, forecast, devices):
         """Initialize the data object."""
-        self._url = "https://api.met.no/weatherapi/locationforecast/1.9/"
+        self._url = "https://api.met.no/weatherapi/locationforecast/2.0/classic"
         self._urlparams = coordinates
         self._forecast = forecast
         self.devices = devices
