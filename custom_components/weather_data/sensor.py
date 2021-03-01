@@ -93,10 +93,11 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         _LOGGER.error("Latitude or longitude not set in Home Assistant config")
         return False
 
-    coordinates = {"lat": str(round(float(latitude), 4)),
-                   "lon": str(round(float(longitude), 4)),
-                   "altitude": str(int(float(urlparams.get('altitude', elevation)))),
-                   }
+    coordinates = {
+        "lat": str(round(float(latitude), 4)),
+        "lon": str(round(float(longitude), 4)),
+        "altitude": str(int(float(urlparams.get("altitude", elevation)))),
+    }
 
     dev = []
     for sensor_type in config[CONF_MONITORED_CONDITIONS]:
