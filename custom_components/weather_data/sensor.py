@@ -165,7 +165,7 @@ class WeatherData:
 
     def __init__(self, hass, coordinates, forecast, devices):
         """Initialize the data object."""
-        self._url = "https://api.met.no/weatherapi/locationforecast/1.9/"
+        self._url = "https://api.met.no/weatherapi/locationforecast/2.0/classic?"
         self._urlparams = coordinates
         self._forecast = forecast
         self.devices = devices
