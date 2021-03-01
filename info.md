@@ -112,3 +112,4 @@ sensor:
 ```
 
 [Support the developer](http://paypal.me/dahoiv)
+
