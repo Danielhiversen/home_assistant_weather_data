@@ -96,7 +96,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     coordinates = {
         "lat": str(round(float(latitude), 4)),
         "lon": str(round(float(longitude), 4)),
-        "altitude": str(int(float(urlparams.get("altitude", elevation)))),
+        "altitude": str(int(float(elevation))),
     }
 
     dev = []
