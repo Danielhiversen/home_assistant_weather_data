@@ -96,7 +96,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     coordinates = {
         "lat": str(round(float(latitude), 4)),
         "lon": str(round(float(longitude), 4)),
-        "altitude": str(int(float(urlparams.get("altitude", elevation)))),
+        "altitude": str(int(float(elevation))),
     }
 
     dev = []
@@ -145,7 +145,7 @@ class WeatherSensor(Entity):
             return None
         return (
             "https://api.met.no/weatherapi/weathericon/1.1/"
-            f"?symbol={self._state};content_type=image/png"
+            f"?symbol={self._state}.png;content_type=image/png"
         )
 
     @property
@@ -253,7 +253,7 @@ class WeatherData:
                     if dev.type == "precipitation":
                         new_state = loc_data[dev.type]["@value"]
                     elif dev.type == "symbol":
-                        new_state = loc_data[dev.type]["@number"]
+                        new_state = loc_data[dev.type]["@code"]
                     elif dev.type in (
                         "temperature",
                         "pressure",
