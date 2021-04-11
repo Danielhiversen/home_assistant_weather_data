@@ -143,10 +143,7 @@ class WeatherSensor(Entity):
         """Weather symbol if type is symbol."""
         if self.type != "symbol":
             return None
-        return (
-            "https://api.met.no/images/weathericons/"
-            f"png/{self._state}.png"
-        )
+        return "https://api.met.no/images/weathericons/" f"png/{self._state}.png"
 
     @property
     def device_state_attributes(self):
