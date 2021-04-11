@@ -144,8 +144,8 @@ class WeatherSensor(Entity):
         if self.type != "symbol":
             return None
         return (
-            "https://api.met.no/weatherapi/weathericon/1.1/"
-            f"?symbol={self._state}.png;content_type=image/png"
+            "https://api.met.no/images/weathericons/"
+            f"png/{self._state}.png"
         )
 
     @property
