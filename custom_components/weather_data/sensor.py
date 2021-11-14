@@ -187,7 +187,7 @@ class WeatherData:
             websession = async_get_clientsession(self.hass)
             with async_timeout.timeout(10):
                 resp = await websession.get(self._url, params=self._urlparams)
-            if resp.status >= HTTPStatus.HTTP_BAD_REQUEST:
+            if resp.status >= HTTPStatus.BAD_REQUEST:
                 try_again(f"{resp.url} returned {resp.status}")
                 return
             text = await resp.text()
