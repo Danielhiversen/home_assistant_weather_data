@@ -9,6 +9,8 @@ import async_timeout
 import voluptuous as vol
 import xmltodict
 
+from http import HTTPStatus
+
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import (
     ATTR_ATTRIBUTION,
@@ -21,7 +23,6 @@ from homeassistant.const import (
     DEVICE_CLASS_HUMIDITY,
     DEVICE_CLASS_PRESSURE,
     DEVICE_CLASS_TEMPERATURE,
-    HTTP_BAD_REQUEST,
     PRESSURE_HPA,
     SPEED_METERS_PER_SECOND,
     TEMP_CELSIUS,
@@ -186,7 +187,7 @@ class WeatherData:
             websession = async_get_clientsession(self.hass)
             with async_timeout.timeout(10):
                 resp = await websession.get(self._url, params=self._urlparams)
-            if resp.status >= HTTP_BAD_REQUEST:
+            if resp.status >= HTTPStatus.BAD_REQUEST:
                 try_again(f"{resp.url} returned {resp.status}")
                 return
             text = await resp.text()
