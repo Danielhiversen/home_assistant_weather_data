@@ -147,11 +147,6 @@ class WeatherSensor(Entity):
         return "https://api.met.no/images/weathericons/" f"png/{self._state}.png"
 
     @property
-    def device_state_attributes(self):
-        """Return the state attributes."""
-        return {ATTR_ATTRIBUTION: ATTRIBUTION}
-
-    @property
     def unit_of_measurement(self):
         """Return the unit of measurement of this entity, if any."""
         return self._unit_of_measurement
