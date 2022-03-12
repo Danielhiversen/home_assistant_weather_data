@@ -125,12 +125,12 @@ class WeatherSensor(Entity):
         self._state = None
         self._unit_of_measurement = SENSOR_TYPES[self.type][1]
         self._device_class = SENSOR_TYPES[self.type][2]
-        
+
         # changed property name since 2021.12
         if MAJOR_VERSION >= 2022 or (MAJOR_VERSION == 2021 and MINOR_VERSION == 12):
-            WeatherSensor.extra_state_attributes = property(lambda: {ATTR_ATTRIBUTION: ATTRIBUTION})
+            WeatherSensor.extra_state_attributes = property(lambda self: {ATTR_ATTRIBUTION: ATTRIBUTION})
         else:
-            WeatherSensor.device_state_attributes = property(lambda: {ATTR_ATTRIBUTION: ATTRIBUTION})
+            WeatherSensor.device_state_attributes = property(lambda self: {ATTR_ATTRIBUTION: ATTRIBUTION})
 
     @property
     def name(self):
