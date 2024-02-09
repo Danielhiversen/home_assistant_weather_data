@@ -4,7 +4,15 @@ import logging
 from random import randrange
 from xml.parsers.expat import ExpatError
 
-from homeassistant.const import MAJOR_VERSION, MINOR_VERSION
+from homeassistant.const import (
+    MAJOR_VERSION,
+    MINOR_VERSION,
+    UnitOfPrecipitationDepth,
+    UnitOfPressure,
+    UnitOfSpeed,
+    UnitOfTemperature,
+)
+
 
 import aiohttp
 import async_timeout
@@ -13,7 +21,7 @@ import xmltodict
 
 from http import HTTPStatus
 
-from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.components.sensor import PLATFORM_SCHEMA, SensorDeviceClass
 from homeassistant.const import (
     ATTR_ATTRIBUTION,
     CONF_ELEVATION,
@@ -22,12 +30,6 @@ from homeassistant.const import (
     CONF_MONITORED_CONDITIONS,
     CONF_NAME,
     DEGREE,
-    DEVICE_CLASS_HUMIDITY,
-    DEVICE_CLASS_PRESSURE,
-    DEVICE_CLASS_TEMPERATURE,
-    PRESSURE_HPA,
-    SPEED_METERS_PER_SECOND,
-    TEMP_CELSIUS,
     PERCENTAGE,
 )
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -47,12 +49,12 @@ ATTRIBUTION = (
 SENSOR_TYPES = {
     "symbol": ["Symbol", None, None],
     "precipitation": ["Precipitation", "mm", None],
-    "temperature": ["Temperature", TEMP_CELSIUS, DEVICE_CLASS_TEMPERATURE],
-    "windSpeed": ["Wind speed", SPEED_METERS_PER_SECOND, None],
-    "windGust": ["Wind gust", SPEED_METERS_PER_SECOND, None],
-    "pressure": ["Pressure", PRESSURE_HPA, DEVICE_CLASS_PRESSURE],
+    "temperature": ["Temperature", UnitOfTemperature.CELSIUS, SensorDeviceClass.TEMPERATURE],
+    "windSpeed": ["Wind speed", UnitOfSpeed.METERS_PER_SECOND, None],
+    "windGust": ["Wind gust", UnitOfSpeed.METERS_PER_SECOND, None],
+    "pressure": ["Pressure", UnitOfPressure.HPA, SensorDeviceClass.PRESSURE],
     "windDirection": ["Wind direction", DEGREE, None],
-    "humidity": ["Humidity", PERCENTAGE, DEVICE_CLASS_HUMIDITY],
+    "humidity": ["Humidity", PERCENTAGE, SensorDeviceClass.HUMIDITY],
     "fog": ["Fog", PERCENTAGE, None],
     "cloudiness": ["Cloudiness", PERCENTAGE, None],
     "lowClouds": ["Low clouds", PERCENTAGE, None],
@@ -60,8 +62,8 @@ SENSOR_TYPES = {
     "highClouds": ["High clouds", PERCENTAGE, None],
     "dewpointTemperature": [
         "Dewpoint temperature",
-        TEMP_CELSIUS,
-        DEVICE_CLASS_TEMPERATURE,
+        UnitOfTemperature.CELSIUS,
+        SensorDeviceClass.TEMPERATURE,
     ],
 }
 
