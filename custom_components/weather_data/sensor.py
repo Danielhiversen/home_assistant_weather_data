@@ -170,7 +170,8 @@ class WeatherData:
 
     def __init__(self, hass, coordinates, forecast, devices):
         """Initialize the data object."""
-        self._url = "https://api.met.no/weatherapi/locationforecast/2.0/classic"
+        # Dedicated Home Assistant endpoint - do not change!
+        self._url = "https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete"
         self._urlparams = coordinates
         self._forecast = forecast
         self.devices = devices
