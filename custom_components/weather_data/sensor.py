@@ -1,6 +1,7 @@
 """Support for weather service."""
 import asyncio
 import logging
+from datetime import timedelta
 from random import randrange
 from xml.parsers.expat import ExpatError
 
@@ -172,6 +173,7 @@ class WeatherData:
         """Initialize the data object."""
         # Dedicated Home Assistant endpoint - do not change!
         self._url = "https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete"
+        # self._url = "https://api.met.no/weatherapi/locationforecast/2.0/classic"
         self._urlparams = coordinates
         self._forecast = forecast
         self.devices = devices
@@ -194,14 +196,14 @@ class WeatherData:
             if resp.status >= HTTPStatus.BAD_REQUEST:
                 try_again(f"{resp.url} returned {resp.status}")
                 return
-            text = await resp.text()
+            json = await resp.json()
 
         except (asyncio.TimeoutError, aiohttp.ClientError) as err:
             try_again(err)
             return
 
         try:
-            self.data = xmltodict.parse(text)["weatherdata"]
+            self.data = json
         except (ExpatError, IndexError) as err:
             try_again(err)
             return
@@ -225,9 +227,9 @@ class WeatherData:
 
         ordered_entries = []
 
-        for time_entry in self.data["product"]["time"]:
-            valid_from = dt_util.parse_datetime(time_entry["@from"])
-            valid_to = dt_util.parse_datetime(time_entry["@to"])
+        for time_entry in self.data["properties"]["timeseries"]:
+            valid_from = dt_util.parse_datetime(time_entry["time"])
+            valid_to = valid_from + dt_util.dt.timedelta(hours=1)
 
             if now >= valid_to:
                 # Has already passed. Never select this.
@@ -247,34 +249,91 @@ class WeatherData:
                 new_state = None
 
                 for (_, selected_time_entry) in ordered_entries:
-                    loc_data = selected_time_entry["location"]
-
-                    if dev.type not in loc_data:
+                    try:
+                        instant = selected_time_entry["data"]["instant"]["details"]
+                        hour = selected_time_entry["data"]["next_1_hours"]["details"]
+                    except KeyError:
                         continue
 
-                    if dev.type == "precipitation":
-                        new_state = loc_data[dev.type]["@value"]
-                    elif dev.type == "symbol":
-                        new_state = loc_data[dev.type]["@code"]
-                    elif dev.type in (
-                        "temperature",
-                        "pressure",
-                        "humidity",
-                        "dewpointTemperature",
-                    ):
-                        new_state = loc_data[dev.type]["@value"]
-                    elif dev.type in ("windSpeed", "windGust"):
-                        new_state = loc_data[dev.type]["@mps"]
+                    if dev.type == "symbol":
+                        try:
+                            new_state = selected_time_entry["data"]["next_1_hours"]["summary"]["symbol_code"]
+                        except KeyError:
+                            continue
+
+                    elif dev.type == "precipitation":
+                        try:
+                            new_state = hour["precipitation_amount"]
+                        except KeyError:
+                            continue
+
+                    elif dev.type == "temperature":
+                        try:
+                            new_state = instant["air_temperature"]
+                        except KeyError:
+                            continue
+
+                    elif dev.type == "pressure":
+                        try:
+                            new_state = instant["air_pressure_at_sea_level"]
+                        except KeyError:
+                            continue
+
+                    elif dev.type == "humidity":
+                        try:
+                            new_state = instant["relative_humidity"]
+                        except KeyError:
+                            continue
+
+                    elif dev.type == "dewpointTemperature":
+                        try:
+                            new_state = instant["dew_point_temperature"]
+                        except KeyError:
+                            continue
+
+                    elif dev.type == "windSpeed":
+                        try:
+                            new_state = instant["wind_speed"]
+                        except KeyError:
+                            continue
+
+                    elif dev.type == "windGust":
+                        try:
+                            new_state = instant["wind_speed_of_gust"]
+                        except KeyError:
+                            continue
+
                     elif dev.type == "windDirection":
-                        new_state = float(loc_data[dev.type]["@deg"])
-                    elif dev.type in (
-                        "fog",
-                        "cloudiness",
-                        "lowClouds",
-                        "mediumClouds",
-                        "highClouds",
-                    ):
-                        new_state = loc_data[dev.type]["@percent"]
+                        try:
+                            new_state = instant["wind_from_direction"]
+                        except KeyError:
+                            continue
+
+                    elif dev.type == "fog":
+                        try:
+                            new_state = instant["fog_area_fraction"]
+                        except KeyError:
+                            continue
+                    elif dev.type == "cloudiness":
+                        try:
+                            new_state = instant["cloud_area_fraction"]
+                        except KeyError:
+                            continue
+                    elif dev.type == "lowClouds":
+                        try:
+                            new_state = instant["cloud_area_fraction_low"]
+                        except KeyError:
+                            continue
+                    elif dev.type == "mediumClouds":
+                        try:
+                            new_state = instant["cloud_area_fraction_medium"]
+                        except KeyError:
+                            continue
+                    elif dev.type == "highClouds":
+                        try:
+                            new_state = instant["cloud_area_fraction_high"]
+                        except KeyError:
+                            continue
 
                     break
 
